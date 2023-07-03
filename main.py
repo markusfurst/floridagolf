@@ -986,14 +986,16 @@ if st.sidebar.checkbox('Log in'):
       st.markdown("#####")
 
       df_perfandread = df_selection.drop(['Takeoff Peak Force % (Asym) (%)','Peak Landing Force % (Asym) (%)',
-                                  'Eccentric Braking Impulse % (Asym) (%)','Eccentric Deceleration RFD % (Asym) (%)','Name','Date'], axis=1)
+                                  'Eccentric Braking Impulse % (Asym) (%)','Eccentric Deceleration RFD % (Asym) (%)','Date'], axis=1)
 
+      sb_options = list(df_perfandread.columns)
+      sb_options.remove('Name')
 
       st.write("For best visual select only one date")
 
       colselect1,colselect2 = st.columns(2)
       with colselect1:
-        sel_metric = st.selectbox('Select the Metric', options=df_perfandread.columns)
+        sel_metric = st.selectbox('Select the Metric', options=sb_options)
       with colselect2:
         st.write("")
 
