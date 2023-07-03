@@ -23,7 +23,7 @@ if st.sidebar.checkbox('Log in'):
     time.sleep(1)
     container.empty()
     
-    df=pd.read_csv('forcedecks-test-export-06_21_2023.csv', parse_dates=["Date"])
+    df=pd.read_csv('forcedecks-test-export-04_05_2023.csv', parse_dates=["Date"])
 
     #remove columns and change date
     df_updated=df.drop(['ExternalId','Test Type','Time','BW [KG]','Reps','Tags','Additional Load [lb]'], axis=1)
@@ -911,7 +911,7 @@ if st.sidebar.checkbox('Log in'):
         with colselect1:
           select1 = st.selectbox('Select the X-axis', options=df_perfandread.columns)
         with colselect2:     
-          select2 = st.selectbox('Select the Y-axis', options=df_perfandread, index=1)
+          select2 = st.selectbox('Select the Y-axis', options=df_perfandread.columns, index=1)
         
         #scatter plot
         plot3 = px.scatter(df_selection, x=select1, y=select2, title= select2 + ' VS ' + select1, text='Date', color='Name')
