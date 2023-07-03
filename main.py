@@ -909,9 +909,9 @@ if st.sidebar.checkbox('Log in'):
 
         colselect1, colselect2 = st.columns(2)
         with colselect1:
-          select1 = st.selectbox('Select the X-axis', options=df_perfandread.columns)
+          select1 = st.selectbox('Select the X-axis', options=df_nonameordate.columns)
         with colselect2:     
-          select2 = st.selectbox('Select the Y-axis', options=df_perfandread.columns, index=1)
+          select2 = st.selectbox('Select the Y-axis', options=df_nonameordate.columns, index=1)
         
         #scatter plot
         plot3 = px.scatter(df_selection, x=select1, y=select2, title= select2 + ' VS ' + select1, text='Date', color='Name')
