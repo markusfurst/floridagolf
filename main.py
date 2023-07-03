@@ -23,7 +23,7 @@ if st.sidebar.checkbox('Log in'):
     time.sleep(1)
     container.empty()
     
-    df=pd.read_csv('forcedecks-test-export-06_21_2023.csv', parse_dates=["Date"])
+    df=pd.read_csv('forcedecks-test-export-04_05_2023.csv', parse_dates=["Date"])
 
     #remove columns and change date
     df_updated=df.drop(['ExternalId','Test Type','Time','BW [KG]','Reps','Tags','Additional Load [lb]'], axis=1)
@@ -928,7 +928,7 @@ if st.sidebar.checkbox('Log in'):
         dfdateorname=df_selection[['Name', 'Date']]
 
         #Take off PeakForce
-        fd = df_selection['Takeoff Peak Force [N] (Asym) (%)']
+        fd = df_selection['Takeoff Peak Force % (Asym) (%)']
         TakeoffPeakForce = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in fd]
         
         #Peak Landing Force
