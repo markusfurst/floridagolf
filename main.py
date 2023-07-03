@@ -924,8 +924,7 @@ if st.sidebar.checkbox('Log in'):
         dfdateorname=df_selection[['Name', 'Date']]
 
         #Take off PeakForce
-        fd = df_selection['Takeoff Peak Force [N] (Asym) (%)']
-        TakeoffPeakForce = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in fd]
+        TakeoffPeakForce = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in df_selection['Takeoff Peak Force [N] (Asym) (%)']]
         
         #Peak Landing Force
         fd1 = df_selection['Peak Landing Force [N] (Asym) (%)']
