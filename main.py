@@ -903,11 +903,15 @@ if st.sidebar.checkbox('Log in'):
         st.write("Select only a few athletes in the navigation bar for best visual")
         st.markdown('###')
 
+        
+        df_perfandread = df_nonameordate.drop(['Takeoff Peak Force [N] (Asym) (%)','Peak Landing Force [N] (Asym) (%)',
+                                  'Eccentric Braking Impulse [N s] (Asym) (%)','Eccentric Deceleration RFD [N/s] (Asym) (%)'], axis=1)
+
         colselect1, colselect2 = st.columns(2)
         with colselect1:
-          select1 = st.selectbox('Select the X-axis', options=df_nonameordate)
+          select1 = st.selectbox('Select the X-axis', options=df_perfandread.columns)
         with colselect2:     
-          select2 = st.selectbox('Select the Y-axis', options=df_nonameordate, index=1)
+          select2 = st.selectbox('Select the Y-axis', options=df_perfandread, index=1)
         
         #scatter plot
         plot3 = px.scatter(df_selection, x=select1, y=select2, title= select2 + ' VS ' + select1, text='Date', color='Name')
