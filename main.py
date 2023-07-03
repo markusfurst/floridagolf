@@ -166,7 +166,7 @@ if st.sidebar.checkbox('Log in'):
     missingDates=[d for d in pd.date_range(min(df.Date), max(df.Date), freq='D') if d not in presentDates]  
 
     #ecc duration graph
-    ecc_duration_by_name = df_selection.groupby(by=["Date"]).mean()[["Eccentric Duration [ms] "]]
+    ecc_duration_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Eccentric Duration [ms] "]]
     fig_ecc_duration = px.line(
         ecc_duration_by_name,
         x=ecc_duration_by_name.index,
@@ -197,7 +197,7 @@ if st.sidebar.checkbox('Log in'):
     fig_ecc_duration.update_xaxes(rangebreaks=[dict(values=missingDates)])  #remove empty dates
     
     #ecc peak vel graph
-    ecc_peak_vel_by_name = df_selection.groupby(by=["Date"]).mean()[["Eccentric Peak Velocity [m/s] "]]
+    ecc_peak_vel_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Eccentric Peak Velocity [m/s] "]]
     fig_ecc_peak_vel = px.line(
         ecc_peak_vel_by_name,
         ecc_peak_vel_by_name.index,
@@ -227,7 +227,7 @@ if st.sidebar.checkbox('Log in'):
     fig_ecc_peak_vel.update_xaxes(rangebreaks=[dict(values=missingDates)]) #remove empty dates
 
     #cmj depth graph
-    cmj_depth_by_name = df_selection.groupby(by=["Date"]).mean()[["Countermovement Depth [cm] "]]
+    cmj_depth_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Countermovement Depth [cm] "]]
     fig_cmj_depth = px.line(
         cmj_depth_by_name,
         cmj_depth_by_name.index,
@@ -257,7 +257,7 @@ if st.sidebar.checkbox('Log in'):
     fig_cmj_depth.update_xaxes(rangebreaks=[dict(values=missingDates)])  #remove empty dates
   
     #Eccentric Decl RFD graph
-    ecc_decl_rfd_name = df_selection.groupby(by=["Date"]).mean()[["Eccentric Deceleration RFD [N/s] "]]
+    ecc_decl_rfd_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Eccentric Deceleration RFD [N/s] "]]
     fig_ecc_decl_rfd = px.line(
         ecc_decl_rfd_name,
         ecc_decl_rfd_name.index,
@@ -287,7 +287,7 @@ if st.sidebar.checkbox('Log in'):
     fig_ecc_decl_rfd.update_xaxes(rangebreaks=[dict(values=missingDates)])  #remove empty dates
 
     #Ecc Decl Impulse graph
-    ecc_decl_imp_name = df_selection.groupby(by=["Date"]).mean()[["Eccentric Deceleration Impulse [N s] "]]
+    ecc_decl_imp_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Eccentric Deceleration Impulse [N s] "]]
     fig_ecc_decl_imp = px.line(
         ecc_decl_imp_name,
         ecc_decl_imp_name.index,
@@ -317,7 +317,7 @@ if st.sidebar.checkbox('Log in'):
     fig_ecc_decl_imp.update_xaxes(rangebreaks=[dict(values=missingDates)]) #remove empty dates
 
     #Ecc peak force graph graph
-    ecc_peak_force_name = df_selection.groupby(by=["Date"]).mean()[["Eccentric Peak Force [N] "]]
+    ecc_peak_force_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Eccentric Peak Force [N] "]]
     fig_ecc_peak_force = px.line(
         ecc_peak_force_name,
         ecc_peak_force_name.index,
@@ -347,7 +347,7 @@ if st.sidebar.checkbox('Log in'):
     fig_ecc_peak_force.update_xaxes(rangebreaks=[dict(values=missingDates)])  #remove empty dates
 
     #Braking Duration graph
-    braking_duration_name = df_selection.groupby(by=["Date"]).mean()[["Braking Phase Duration [s] "]]
+    braking_duration_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Braking Phase Duration [s] "]]
     fig_braking_duration = px.line(
         braking_duration_name,
         braking_duration_name.index,
@@ -567,7 +567,7 @@ if st.sidebar.checkbox('Log in'):
     #Graphs Performance KPI's
 
 
-    jump_height_by_name = df_selection.groupby(by=["Date"]).mean()[["Jump Height (Flight Time) in Inches [in] "]]
+    jump_height_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Jump Height (Flight Time) in Inches [in] "]]
     fig_jump_height = px.line(
         jump_height_by_name,
         x=jump_height_by_name.index,
@@ -596,7 +596,7 @@ if st.sidebar.checkbox('Log in'):
     fig_jump_height.update_traces(marker_size=11)
     fig_jump_height.update_xaxes(rangebreaks=[dict(values=missingDates)]) #remove empty dates
 
-    peak_power_by_name = df_selection.groupby(by=["Date"]).mean()[["Peak Power / BM [W/kg] "]]
+    peak_power_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Peak Power / BM [W/kg] "]]
     fig_peak_power = px.line(
         peak_power_by_name,
         x=peak_power_by_name.index,
@@ -625,7 +625,7 @@ if st.sidebar.checkbox('Log in'):
     fig_peak_power.update_traces(marker_size=11)
     fig_peak_power.update_xaxes(rangebreaks=[dict(values=missingDates)]) #remove empty dates
 
-    RSI_mod_by_name = df_selection.groupby(by=["Date"]).mean()[["RSI-modified [m/s] "]]
+    RSI_mod_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["RSI-modified [m/s] "]]
     fig_RSI_mod = px.line(
         RSI_mod_by_name,
         x=RSI_mod_by_name.index,
@@ -654,7 +654,7 @@ if st.sidebar.checkbox('Log in'):
     fig_RSI_mod.update_traces(marker_size=11)
     fig_RSI_mod.update_xaxes(rangebreaks=[dict(values=missingDates)]) #remove empty dates
 
-    conc_impulse_by_name = df_selection.groupby(by=["Date"]).mean()[["Concentric Impulse [N s] "]]
+    conc_impulse_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Concentric Impulse [N s] "]]
     fig_conc_impulse = px.line(
         conc_impulse_by_name,
         x=conc_impulse_by_name.index,
@@ -683,7 +683,7 @@ if st.sidebar.checkbox('Log in'):
     fig_conc_impulse.update_traces(marker_size=11)
     fig_conc_impulse.update_xaxes(rangebreaks=[dict(values=missingDates)]) #remove empty dates
 
-    ecc_impulse_by_name = df_selection.groupby(by=["Date"]).mean()[["Eccentric Braking Impulse [N s] "]]
+    ecc_impulse_by_name = df_selection.groupby(by=["Date"]).mean(numeric_only=True)[["Eccentric Braking Impulse [N s] "]]
     fig_ecc_impulse = px.line(
         ecc_impulse_by_name,
         x=ecc_impulse_by_name.index,
