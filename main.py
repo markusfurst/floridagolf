@@ -903,11 +903,15 @@ if st.sidebar.checkbox('Log in'):
         st.write("Select only a few athletes in the navigation bar for best visual")
         st.markdown('###')
 
+        
+        df_perfandread = df_nonameordate.drop(['Takeoff Peak Force % (Asym) (%)','Peak Landing Force % (Asym) (%)',
+                                  'Eccentric Braking Impulse % (Asym) (%)','Eccentric Deceleration RFD % (Asym) (%)'], axis=1)
+
         colselect1, colselect2 = st.columns(2)
         with colselect1:
-          select1 = st.selectbox('Select the X-axis', options=df_nonameordate.columns)
+          select1 = st.selectbox('Select the X-axis', options=df_perfandread.columns)
         with colselect2:     
-          select2 = st.selectbox('Select the Y-axis', options=df_nonameordate.columns, index=1)
+          select2 = st.selectbox('Select the Y-axis', options=df_perfandread.columns, index=1)
         
         #scatter plot
         plot3 = px.scatter(df_selection, x=select1, y=select2, title= select2 + ' VS ' + select1, text='Date', color='Name')
@@ -924,24 +928,25 @@ if st.sidebar.checkbox('Log in'):
         dfdateorname=df_selection[['Name', 'Date']]
 
         #Take off PeakForce
-        TakeoffPeakForce = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in df_selection['Takeoff Peak Force [N] (Asym) (%)']]
+        fd = df_selection['Takeoff Peak Force [N] (Asym) (%)']
+        TakeoffPeakForce = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in fd]
         
         #Peak Landing Force
-        fd1 = df_selection['Peak Landing Force [N] (Asym) (%)']
+        fd1 = df_selection['Peak Landing Force % (Asym) (%)']
         PeakLandingForce = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in fd1]
 
         #Peak Landing Force
-        fd2 = df_selection['Eccentric Braking Impulse [N s] (Asym) (%)']
+        fd2 = df_selection['Eccentric Braking Impulse % (Asym) (%)']
         EccentricBrakingImpulse = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in fd2]
 
         #Peak Landing Force
-        fd3 = df_selection['Eccentric Deceleration RFD [N/s] (Asym) (%)']
+        fd3 = df_selection['Eccentric Deceleration RFD % (Asym) (%)']
         EccentricDeclRFD = [float(each.upper().replace('R','').strip()) if 'R' in each.upper() else -float(each.upper().replace('L','').strip()) for each in fd3]
         
         
         dateorname,get_list = st.columns(2)
         with dateorname:
-          dateorname =st.selectbox('Select the X-axis', options=dfdateorname.columns)
+          dateorname =st.selectbox('Select the X-axis', options=dfdateorname.columns, index=1)
         with get_list:
           get_list = st.selectbox('Select Asymmetry', ("TakeoffPeakForce",'PeakLandingForce','EccentricBrakingImpulse','EccentricDeclRFD'))
         if get_list == "TakeoffPeakForce":
