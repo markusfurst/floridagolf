@@ -946,7 +946,7 @@ if st.sidebar.checkbox('Log in'):
         
         dateorname,get_list = st.columns(2)
         with dateorname:
-          dateorname =st.selectbox('Select the X-axis', options=dfdateorname.columns, index=1)
+          dateorname =st.selectbox('Select the X-axis', options=dfdateorname.columns)
         with get_list:
           get_list = st.selectbox('Select Asymmetry', ("TakeoffPeakForce",'PeakLandingForce','EccentricBrakingImpulse','EccentricDeclRFD'))
         if get_list == "TakeoffPeakForce":
