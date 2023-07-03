@@ -921,12 +921,7 @@ if st.sidebar.checkbox('Log in'):
         st.write("Select only 1 athlete in the navigation bar for best visual")
         st.markdown('###')
 
-        dfdateorname=df_selection.drop(['Peak Power / BM [W/kg] ','RSI-modified [m/s] ','Concentric Impulse [N s] ','Eccentric Braking Impulse [N s] ',
-                                  'Eccentric Duration [ms] ','Countermovement Depth [cm] ','Eccentric Peak Velocity [m/s] ',
-                                  'Takeoff Peak Force [N] (Asym) (%)','Peak Landing Force [N] (Asym) (%)',
-                                  'Eccentric Braking Impulse [N s] (Asym) (%)','Eccentric Deceleration RFD [N/s] (Asym) (%)',
-                                  'Jump Height (Flight Time) in Inches [in] ',"Eccentric Deceleration RFD [N/s] ", "Eccentric Deceleration Impulse [N s] ",
-                                  "Eccentric Peak Force [N] ","Braking Phase Duration [s] "], axis=1)
+        dfdateorname=df_selection[['Name', 'Date']]
 
         #Take off PeakForce
         fd = df_selection['Takeoff Peak Force [N] (Asym) (%)']
@@ -947,7 +942,7 @@ if st.sidebar.checkbox('Log in'):
         
         dateorname,get_list = st.columns(2)
         with dateorname:
-          dateorname =st.selectbox('Select the X-axis', options=dfdateorname.columns, index=1)
+          dateorname =st.selectbox('Select the X-axis', options=dfdateorname.columns)
         with get_list:
           get_list = st.selectbox('Select Asymmetry', ("TakeoffPeakForce",'PeakLandingForce','EccentricBrakingImpulse','EccentricDeclRFD'))
         if get_list == "TakeoffPeakForce":
