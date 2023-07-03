@@ -886,12 +886,6 @@ if st.sidebar.checkbox('Log in'):
         st.markdown('###')
 
         df_nonameordate = df_selection.drop(['Date','Name'], axis=1)
-        dfdateorname=df_selection.drop(['Peak Power / BM [W/kg] ','RSI-modified [m/s] ','Concentric Impulse [N s] ','Eccentric Braking Impulse [N s] ',
-                                  'Eccentric Duration [ms] ','Countermovement Depth [cm] ','Eccentric Peak Velocity [m/s] ',
-                                  'Takeoff Peak Force [N] (Asym) (%)','Peak Landing Force [N] (Asym) (%)',
-                                  'Eccentric Braking Impulse [N s] (Asym) (%)','Eccentric Deceleration RFD [N/s] (Asym) (%)',
-                                  'Jump Height (Flight Time) in Inches [in] ',"Eccentric Deceleration RFD [N/s] ", "Eccentric Deceleration Impulse [N s] ",
-                                  "Eccentric Peak Force [N] ","Braking Phase Duration [s] "], axis=1)
         
         col1,col2 = st.columns(2)
         y_axis_val = col1.selectbox('Select the Metric', options=df_nonameordate.columns)
