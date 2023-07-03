@@ -898,7 +898,7 @@ if st.sidebar.checkbox('Log in'):
         plot.update_traces(marker_size=11, textposition='top center')
         st.plotly_chart(plot, use_container_width=True)
         
-         st.markdown("""---""")
+        st.markdown("""---""")
         st.subheader('Comparasion between two metrics')
         st.write("Select only a few athletes in the navigation bar for best visual")
         st.markdown('###')
