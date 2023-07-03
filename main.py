@@ -904,7 +904,7 @@ if st.sidebar.checkbox('Log in'):
         st.markdown('###')
 
         
-        df_perfandread = df_selection.drop(['Takeoff Peak Force [N] (Asym) (%)','Peak Landing Force [N] (Asym) (%)',
+        df_perfandread = df_selection.drop(columns=['Takeoff Peak Force [N] (Asym) (%)','Peak Landing Force [N] (Asym) (%)',
                                   'Eccentric Braking Impulse [N s] (Asym) (%)','Eccentric Deceleration RFD [N/s] (Asym) (%)', 'Date','Name'], axis=1)
         sb_options = list(df_perfandread.columns)
 
