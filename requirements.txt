@@ -3,3 +3,4 @@ Pillow==9.3.0
 plotly_express==0.4.1
 streamlit==1.14.0
 pip==23.1.2
+prophet
