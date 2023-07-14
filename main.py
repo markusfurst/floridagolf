@@ -1,9 +1,12 @@
-
 import pandas as pd
 import plotly_express as px
 import streamlit as st
 import time
 from PIL import Image
+from datetime import date
+from prophet import Prophet
+from prophet.plot import plot_plotly
+from plotly import graph_objs as go
 
 
 image = Image.open('florida.png')
@@ -32,7 +35,7 @@ if st.sidebar.checkbox('Log in'):
     #sidebar
 
     st.sidebar.header('Navigation')
-    options = st.sidebar.radio('Dashboards:', options=['Readiness', 'Performance','Interactive Graphs','Assymetries', 'Leaderboard', 'Benchmarks', 'All Data'])    
+    options = st.sidebar.radio('Dashboards:', options=['Readiness', 'Performance','Interactive Graphs','Assymetries', 'Leaderboard', 'Forecast', 'Benchmarks', 'All Data'])    
     
 
     name = st.sidebar.multiselect(
@@ -891,9 +894,7 @@ if st.sidebar.checkbox('Log in'):
         y_axis_val = col1.selectbox('Select the Metric', options=df_nonameordate.columns)
 
         plot = px.line(df_selection, x=df_selection['Date'], y=y_axis_val, color=df_selection['Name'], text=y_axis_val)
-        plot.update_layout(
-        xaxis=dict(tickmode="linear"),
-        )
+        plot.update_layout(xaxis=dict(tickmode="linear"),xaxis_rangeslider_visible=True)
         plot.update_xaxes(rangebreaks=[dict(values=missingDates)]) #remove empty dates
         plot.update_traces(marker_size=11, textposition='top center')
         st.plotly_chart(plot, use_container_width=True)
@@ -1009,6 +1010,39 @@ if st.sidebar.checkbox('Log in'):
                   plot_bgcolor = "rgba(0,0,0,0)")
       st.plotly_chart(plot_leaderboard, use_container_width=True)
 
+    #forecast
+    def forecast():
+      st.markdown("<h1 style='text-align: center; color: #00000;'>Forecast</h1>", unsafe_allow_html=True)
+      st.markdown("#####")
+
+      df_perfandread = df_selection.drop(['Takeoff Peak Force % (Asym) (%)','Peak Landing Force % (Asym) (%)',
+                                  'Eccentric Braking Impulse % (Asym) (%)','Eccentric Deceleration RFD % (Asym) (%)','Date'], axis=1)
+
+      sb_options = list(df_perfandread.columns)
+      sb_options.remove('Name')
+
+      colselect1,colselect2 = st.columns(2)
+      with colselect1:
+        sel_metric = st.selectbox('Select the Metric', options=sb_options)
+      with colselect2:
+        n_months = st.slider('Months of prediction:', 1, 12)
+        period = n_months * 12
+
+      df_train=df_selection[['Date',sel_metric]]
+      df_train = df_train.rename(columns={'Date':'ds',sel_metric:'y'})
+      m=Prophet()
+      m.fit(df_train)
+      future = m.make_future_dataframe(periods=period)
+      forecast= m.predict(future)
+      
+      plot1=plot_plotly(m,forecast)
+      st.plotly_chart(plot1)
+
+      plot2=m.plot_components(forecast)
+      st.write(plot2)
+
+
+
     def benchmarks():
         with open('style.css') as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -1065,6 +1099,8 @@ if st.sidebar.checkbox('Log in'):
         assym()
     elif options == 'Leaderboard':
         leaderboard()
+    elif options == 'Forecast':
+        forecast()
     elif options == 'Benchmarks':
         benchmarks()
     elif options == 'All Data':
